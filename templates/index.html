@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TripMate AI</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+    <div class="page-shell">
+        <header class="topbar">
+            <div class="brand">
+                <div class="brand-mark">TM</div>
+                <div>
+                    <strong>TripMate AI</strong>
+                    <span>Multi-agent travel planner</span>
+                </div>
+            </div>
+
+            <div class="status-pill">
+                <span class="status-dot"></span>
+                Online
+            </div>
+        </header>
+
+        <main class="app-container">
+            <section class="hero-section">
+                <div class="hero-copy">
+                    <div class="badge">TripOrchestrator with LangGraph</div>
+
+                    <h1>Design your next journey with an AI travel concierge.</h1>
+
+                    <p>
+                        Build complete itineraries with flights, stays, sightseeing, budget notes,
+                        and practical recommendations in one guided plan.
+                    </p>
+                </div>
+
+                <aside class="hero-panel" aria-label="Travel preview">
+                    <div class="hero-photo"></div>
+
+                    <div class="floating-card route-card">
+                        <span>Route</span>
+                        <strong>India → Japan</strong>
+                    </div>
+
+                    <div class="floating-card budget-card">
+                        <span>Budget target</span>
+                        <strong>₹2,00,000</strong>
+                    </div>
+                </aside>
+            </section>
+
+            <section class="planner-card">
+                <div class="card-header">
+                    <div>
+                        <p class="section-kicker">Start planning</p>
+                        <h2>Where should your AI agent take you?</h2>
+                        <p>
+                            Ask for a full trip plan, compare destinations, or request flight and hotel details.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="input-area">
+                    <textarea
+                        id="userInput"
+                        placeholder="Plan a complete 7 days Japan trip including flights, hotels and sightseeing under 2 lakhs..."
+                    ></textarea>
+
+                    <button id="sendBtn" onclick="sendMessage()">
+                        <span id="btnText">Generate Plan</span>
+                        <span id="btnLoader" class="loader hidden"></span>
+                    </button>
+                </div>
+
+                <div class="quick-prompts">
+                    <button onclick="setPrompt('Plan a complete 7 days Japan trip from India including flights, hotels and sightseeing under 2 lakhs.')">
+                        Japan Trip
+                    </button>
+
+                    <button onclick="setPrompt('Plan a 5 days Dubai trip from India with flights, hotels and sightseeing.')">
+                        Dubai Trip
+                    </button>
+
+                    <button onclick="setPrompt('Plan a 7 days Thailand trip from India with budget hotels and sightseeing.')">
+                        Thailand Trip
+                    </button>
+
+                    <button onclick="setPrompt('Give me all country flight info.')">
+                        Global Flights
+                    </button>
+                </div>
+            </section>
+
+            <section id="resultSection" class="result-section hidden">
+                <div class="result-header">
+                    <div>
+                        <p class="section-kicker">Generated itinerary</p>
+                        <h2>Your AI Travel Plan</h2>
+                        <p id="threadInfo">Thread ID: -</p>
+                    </div>
+
+                    <div class="result-actions">
+                        <button class="copy-btn" onclick="copyResult()">Copy</button>
+                        <button class="download-btn" onclick="downloadPDF()">Download PDF</button>
+                    </div>
+                </div>
+
+                <div id="pdfContent" class="pdf-content">
+                    <h1 class="pdf-title">AI Travel Plan</h1>
+                    <div id="resultBox" class="result-box"></div>
+                </div>
+            </section>
+
+            <section id="errorBox" class="error-box hidden"></section>
+        </main>
+
+        <footer>
+            Built with FastAPI, LangGraph, Groq, PostgreSQL, Tavily and AviationStack
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="/static/script.js"></script>
+</body>
+</html>
